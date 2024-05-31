@@ -279,6 +279,7 @@ const STAGES = [
 
   ({ options, editable, playersAmount, templateSize, handleTemplateSizeChange, handlePlayersAmountChange, handleTimeChange }) =>
     <div>
+      <h2 className={classes['option-header']}> Основные настройки </h2>
       <Slider
         editable={editable}
         label='Размер поля'
@@ -319,6 +320,7 @@ const STAGES = [
 
     return (
       <div>
+        <h2 className={classes['option-header']}> Игровое поле </h2>
         {
           editable &&
           <div className={tabsClasses['tabs']}>
@@ -334,6 +336,7 @@ const STAGES = [
   ({ questions, editable, handleQuestionsChange, handleQuestionsDelete }) => {
     return(
       <div className={classes['question-container']}>
+        <h2 className={classes['option-header']}> Вопросы </h2>
         { 
           questions.map((question, index) => 
             <Question 
@@ -357,6 +360,7 @@ const STAGES = [
 
   ({ finalGame, gameName, setGameName, editable }) =>
     <div>
+      <h2 className={classes['option-header']}> Панель отладки </h2>
       <pre style={{background: '#ccc', color: 'black', padding: '10px', borderRadius: '10px'}}> {JSON.stringify(finalGame, null, 2)} </pre>
       {
         editable &&

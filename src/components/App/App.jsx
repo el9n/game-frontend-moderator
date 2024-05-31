@@ -5,56 +5,56 @@ import classes from './App.module.css'
 
 const DEFAULT_GAME_OPTIONS = {
   template: [
-    [5,3,3,3,5,3,3,3,5],
-    [3,0,3,3,5,3,3,0,3],
-    [3,3,5,3,5,3,5,3,3],
-    [3,3,3,8,11,8,3,3,3],
-    [5,5,5,11,15,11,5,5,5],
-    [3,3,3,8,11,8,3,3,3],
-    [3,3,5,3,5,3,5,3,3],
-    [3,0,3,3,5,3,3,0,3],
-    [5,3,3,3,5,3,3,3,5],
+    [5, 3, 3, 3, 5, 3, 3, 3, 5],
+    [3, 0, 3, 3, 5, 3, 3, 0, 3],
+    [3, 3, 5, 3, 5, 3, 5, 3, 3],
+    [3, 3, 3, 8, 11, 8, 3, 3, 3],
+    [5, 5, 5, 11, 15, 11, 5, 5, 5],
+    [3, 3, 3, 8, 11, 8, 3, 3, 3],
+    [3, 3, 5, 3, 5, 3, 5, 3, 3],
+    [3, 0, 3, 3, 5, 3, 3, 0, 3],
+    [5, 3, 3, 3, 5, 3, 3, 3, 5],
   ],
   rules: {
-    '1': {stronghold: 'B'}, 
-    '2': {stronghold: 'B'}, 
-    '3': {stronghold: 'B'}, 
-    '10': {stronghold: 'B'}, 
-    '19': {stronghold: 'B'}, 
-    '11': {base: 'A'},
-    '12': {stronghold: 'A'}, 
-    '20': {stronghold: 'A'}, 
-    '21': {stronghold: 'A'},
+    '1': { stronghold: 'B' },
+    '2': { stronghold: 'B' },
+    '3': { stronghold: 'B' },
+    '10': { stronghold: 'B' },
+    '19': { stronghold: 'B' },
+    '11': { base: 'A' },
+    '12': { stronghold: 'A' },
+    '20': { stronghold: 'A' },
+    '21': { stronghold: 'A' },
 
-    '7': {stronghold: 'D'}, 
-    '8': {stronghold: 'D'}, 
-    '9': {stronghold: 'D'}, 
-    '18': {stronghold: 'D'}, 
-    '27': {stronghold: 'D'}, 
-    '17': {base: 'C'},
-    '16': {stronghold: 'C'}, 
-    '25': {stronghold: 'C'}, 
-    '26': {stronghold: 'C'},
+    '7': { stronghold: 'D' },
+    '8': { stronghold: 'D' },
+    '9': { stronghold: 'D' },
+    '18': { stronghold: 'D' },
+    '27': { stronghold: 'D' },
+    '17': { base: 'C' },
+    '16': { stronghold: 'C' },
+    '25': { stronghold: 'C' },
+    '26': { stronghold: 'C' },
 
-    '55': {stronghold: 'C'}, 
-    '64': {stronghold: 'C'}, 
-    '73': {stronghold: 'C'}, 
-    '74': {stronghold: 'C'}, 
-    '75': {stronghold: 'C'}, 
-    '65': {base: 'D'},
-    '56': {stronghold: 'D'}, 
-    '57': {stronghold: 'D'}, 
-    '66': {stronghold: 'D'},
+    '55': { stronghold: 'C' },
+    '64': { stronghold: 'C' },
+    '73': { stronghold: 'C' },
+    '74': { stronghold: 'C' },
+    '75': { stronghold: 'C' },
+    '65': { base: 'D' },
+    '56': { stronghold: 'D' },
+    '57': { stronghold: 'D' },
+    '66': { stronghold: 'D' },
 
-    '61': {stronghold: 'B'}, 
-    '62': {stronghold: 'B'}, 
-    '70': {stronghold: 'B'}, 
-    '71': {base: 'B'},
-    '63': {stronghold: 'A'}, 
-    '72': {stronghold: 'A'}, 
-    '79': {stronghold: 'A'}, 
-    '80': {stronghold: 'A'}, 
-    '81': {stronghold: 'A'}, 
+    '61': { stronghold: 'B' },
+    '62': { stronghold: 'B' },
+    '70': { stronghold: 'B' },
+    '71': { base: 'B' },
+    '63': { stronghold: 'A' },
+    '72': { stronghold: 'A' },
+    '79': { stronghold: 'A' },
+    '80': { stronghold: 'A' },
+    '81': { stronghold: 'A' },
   },
   players: {
     A: 'Супер команда красных',
@@ -110,49 +110,52 @@ function App() {
 
   return (
     <>
-      <p>
-        { games.map(game => <button key={game} onClick={() => {
-          setPopup(true)
-          setSelectedGame(game)
-        }}>{ game }</button>) }
-        {' '}
-        <button onClick={() => setShowNewGamePopup(true)}>Добавить игру</button>
-      </p>
-      { 
-        selectedGameContent && 
+      <h1 className={classes["header"]}>ПАНЕЛЬ МОДЕРАТОРА</h1>
+      <div className={classes["main"]}> Посмотреть настройки игры:
+        <p className={classes["game-list"]}>
+          {games.map(game => <button className={classes["game-option-btn"]} key={game} onClick={() => {
+            setPopup(true)
+            setSelectedGame(game)
+          }}>{game}</button>)}
+          {' '}
+          <button className={classes["game-add-btn"]} onClick={() => setShowNewGamePopup(true)}>Добавить игру</button>
+        </p>
+        {
+          selectedGameContent &&
+          <GameOptions
+            key={popup}
+            open={popup}
+            onOpenChange={setPopup}
+            options={selectedGameContent.options}
+            questions={selectedGameContent.questions} />
+        }
         <GameOptions
-          key={popup}
-          open={popup}
-          onOpenChange={setPopup}
-          options={selectedGameContent.options}
-          questions={selectedGameContent.questions}/>
-      }
-      <GameOptions 
-        editable
-        options={DEFAULT_GAME_OPTIONS}
-        questions={questions}
-        open={showNewGamePopup} 
-        onSubmit={game => fetchWithReload('new_game.php', {
-          method: 'POST',
-          body: JSON.stringify(game)
-        })}
-        onOpenChange={setShowNewGamePopup}/>
-      <p>
-        Активная игра:
-        {' '}
-        <select value={activeGame.name} onChange={e => fetchWithReload('current_game.php?' + e.target.value)}>
-          <option key='empty' value='null'>Не выбрано</option>
-          {
-            games.map(game => <option key={game} value={game}>{ game }</option>)
-          }
-        </select>
-        {' '}
-        [{activeGame.isPaused ? 'на паузе' : 'запущена'}]
-        {' '}
-        <button onClick={() => fetchWithReload('toggle_game.php')}>
-          {activeGame.isPaused ? 'Запустить' : 'Остановить'}
-        </button>
-      </p>
+          editable
+          options={DEFAULT_GAME_OPTIONS}
+          questions={questions}
+          open={showNewGamePopup}
+          onSubmit={game => fetchWithReload('new_game.php', {
+            method: 'POST',
+            body: JSON.stringify(game)
+          })}
+          onOpenChange={setShowNewGamePopup} />
+        <p className={classes["active"]}>
+          Активная игра:
+          {' '}
+          <select className={classes["game-selector"]} value={activeGame.name} onChange={e => fetchWithReload('current_game.php?' + e.target.value)}>
+            <option className={classes["game-select-active"]} key='empty' value='null'>Не выбрано</option>
+            {
+              games.map(game => <option className={classes["active"]} key={game} value={game}>{game}</option>)
+            }
+          </select>
+          <p className={classes["status"]}> Статус:
+            [{activeGame.isPaused ? 'на паузе' : 'запущена'}]
+          </p>
+          <button className={classes["start-stop-btn"]} onClick={() => fetchWithReload('toggle_game.php')}>
+            {activeGame.isPaused ? 'Запустить' : 'Остановить'}
+          </button>
+        </p>
+      </div>
     </>
   )
 }

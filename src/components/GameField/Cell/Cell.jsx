@@ -32,7 +32,8 @@ function Cell({
       }} 
       className={classNames}>
         { 
-          <input type="text" disabled={!(playable && editable)} value={ value } onChange={e => {
+          <input type="text" //disabled={!(playable && editable)} 
+            value={ value } onChange={e => {
             const num = Number(e.target.value)
             !Number.isNaN(num) && onValueChange(index, num)
           }}/> 
